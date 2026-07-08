@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours : Construire son identité Pro - TP TLE</title>
+    
+    <!-- Import de polices industrielles et modernes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --color-primary: #FFD700; /* Jaune Haute Visibilité */
+            --color-primary-dark: #D4B200;
+            --color-secondary: #1A2530; /* Bleu Nuit Chariot */
+            --color-accent: #0056b3; /* Bleu Action */
+            --color-danger: #D32F2F; /* Rouge Alerte */
+            --color-text: #333333;
+            --color-text-light: #f4f4f4;
+            --color-bg: #f9f9f9;
+            --color-card: #ffffff;
+            --stripe-size: 20px;
+            --spacing-unit: 1.5rem;
+            --border-radius: 4px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- UTILITY CLASSES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .highlight { color: var(--color-accent); font-weight: 700; }
+        .text-center { text-align: center; }
+        
+        /* --- MOTIF BARRAGE (Hazard Tape) --- */
+        .hazard-stripes {
+            height: 10px;
+            width: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--color-primary),
+                var(--color-primary) 20px,
+                var(--color-secondary) 20px,
+                var(--color-secondary) 40px
+            );
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--color-secondary);
+            color: var(--color-text-light);
+            padding: 4rem 0 2rem;
+            position: relative;
+            border-bottom: 6px solid var(--color-primary);
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        /* --- INTRO SECTION --- */
+        .intro {
+            background: white;
+            padding: 3rem;
+            margin-top: -20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .intro ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .intro li {
+            background: #eef2f5;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .intro li::before {
+            content: '➜';
+            color: var(--color-accent);
+            margin-right: 8px;
+        }
+
+        /* --- TOOLBAR (Audio & PDF) --- */
+        .toolbar-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .audio-player-wrapper {
+            flex: 2;
+            background: var(--color-secondary);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            color: white;
+        }
+
+        .audio-icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+        }
+
+        .pdf-btn-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-pdf {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--color-danger);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(211, 47, 47, 0.3);
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-pdf:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* --- MAIN CONTENT GRID --- */
+        .section-block {
+            margin: 4rem 0;
+            background: var(--color-card);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid transparent;
+            transition: transform 0.2s ease;
+        }
+        
+        .section-block:hover { transform: translateY(-2px); }
+
+        .section-block h2 {
+            font-size: 2rem;
+            color: var(--color-secondary);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-block h2::before {
+            content: attr(data-num);
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* --- SPECIAL BOXES --- */
+        .box {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box-tip {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .box-error {
+            background-color: #ffebee;
+            border-left: 5px solid var(--color-danger);
+        }
+
+        .box-remember {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .box-title {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+        }
+        
+        .box-tip .box-title { color: #2e7d32; }
+        .box-error .box-title { color: var(--color-danger); }
+        .box-remember .box-title { color: var(--color-accent); }
+
+        /* --- GRID LAYOUTS --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .toolbar-section { flex-direction: column; }
+            header h1 { font-size: 1.8rem; }
+        }
+
+        /* --- CARDS --- */
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+
+        .card-header {
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- LISTS --- */
+        ul.styled-list {
+            list-style: none;
+        }
+
+        ul.styled-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 0.8rem;
+        }
+
+        ul.styled-list li::before {
+            content: '■';
+            color: var(--color-accent);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+            top: 4px;
+        }
+
+        /* --- FINAL QUIZ BUTTON SECTION --- */
+        .quiz-cta-section {
+            background: var(--color-secondary);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin-top: 4rem;
+            border: 2px solid var(--color-primary);
+            text-align: center;
+        }
+
+        .quiz-cta-section h2 {
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .btn-quiz {
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: 1rem 3rem;
+            font-family: 'Oswald';
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: transform 0.1s, background 0.2s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-quiz:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: #111;
+            color: #888;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-secondary);
+        }
+
+        .visual-separator {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            filter: grayscale(30%) contrast(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Header -->
+    <header>
+        <div class="hazard-stripes"></div>
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem; font-size: 3rem;">🚚</div>
+            <h1>Construire une identité professionnelle solide</h1>
+            <div class="subtitle">TECHNICIEN EN LOGISTIQUE D’ENTREPOSAGE</div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Introduction -->
+        <section class="intro">
+            <h3 style="color: var(--color-secondary); margin-bottom: 1rem;">INTRODUCTION</h3>
+            <p>Le technicien en logistique d’entreposage occupe un rôle central dans la performance des entreprises : gestion des flux, optimisation des stocks, sécurité, coordination des opérations. Pour réussir son insertion professionnelle, il doit construire une identité professionnelle solide, fondée sur la rigueur, la polyvalence, la maîtrise des outils logistiques et la communication.</p>
+            
+            <ul>
+                <li>Comprendre la réalité du secteur</li>
+                <li>Définir son positionnement professionnel</li>
+                <li>Construire un pitch clair et convaincant</li>
+                <li>Valoriser ses compétences techniques et comportementales</li>
+                <li>Adopter les attitudes professionnelles attendues</li>
+                <li>Renforcer son attractivité auprès des employeurs</li>
+            </ul>
+        </section>
+
+        <!-- Toolbar (Audio & PDF) -->
+        <section class="toolbar-section">
+            <div class="audio-player-wrapper">
+                <div class="audio-icon">🎧</div>
+                <div style="flex-grow: 1;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: #ccc; font-size: 0.9rem;">VERSION AUDIO</h4>
+                    <audio controls>
+                        <source src="Valoriser TP TLE.m4a" type="audio/mp4">
+                        Votre navigateur ne supporte pas l'élément audio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="pdf-btn-wrapper">
+                <a href="Valoriser TP TLE.pdf" class="btn-pdf" download>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                    Télécharger le PDF
+                </a>
+            </div>
+        </section>
+
+        <!-- 1. Comprendre la réalité du secteur -->
+        <section class="section-block">
+            <h2 data-num="1">Comprendre la réalité du secteur</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>1.1. Les missions essentielles du technicien</h3>
+                    <ul class="styled-list">
+                        <li><strong>Gestion des flux</strong> — réception, stockage, préparation, expédition.</li>
+                        <li><strong>Organisation de l’entrepôt</strong> — zonage, rotation des stocks, optimisation.</li>
+                        <li><strong>Utilisation des outils numériques</strong> — WMS, scan, PDA, ERP.</li>
+                        <li><strong>Sécurité et réglementation</strong> — EPI, circulation, conformité.</li>
+                        <li><strong>Communication interne</strong> — coordination avec caristes, préparateurs, chauffeurs.</li>
+                    </ul>
+                    <div class="box box-remember">
+                        <span class="box-title">À RETENIR</span>
+                        Le technicien en logistique est un chef d’orchestre des flux, garant de la sécurité, de la qualité et de la performance.
+                    </div>
+                </div>
+                <div>
+                    <h3>1.2. Les exigences du secteur</h3>
+                    <ul class="styled-list">
+                        <li>Rigueur dans la gestion des stocks.</li>
+                        <li>Vigilance permanente : risques de collision, erreurs de préparation, ruptures.</li>
+                        <li>Confidentialité sur les volumes, produits, clients.</li>
+                        <li>Gestion du stress en période de forte activité.</li>
+                        <li>Adaptation aux outils numériques et aux procédures.</li>
+                    </ul>
+                    <div class="box box-error">
+                        <span class="box-title">ERREUR FRÉQUENTE</span>
+                        Penser que la logistique se résume à « déplacer des produits ». Le métier exige analyse, organisation, communication, maîtrise des outils.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Définir son positionnement -->
+        <section class="section-block">
+            <h2 data-num="2">Définir son positionnement</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>2.1. Le positionnement professionnel, c’est quoi ?</h3>
+                    <p>C’est la manière dont un technicien se présente, se définit et se distingue. Il répond à trois questions :</p>
+                    <ul class="styled-list">
+                        <li>Qui je suis professionnellement ?</li>
+                        <li>Quelles sont mes forces ?</li>
+                        <li>Qu’est‑ce que j’apporte à l’entreprise ?</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem;">2.2. Construire son positionnement</h3>
+                    <ul class="styled-list">
+                        <li><strong>Identifier ses forces :</strong> organisation, polyvalence, maîtrise des outils, communication.</li>
+                        <li><strong>Relier ses compétences au métier :</strong> gestion des flux, optimisation, sécurité.</li>
+                        <li><strong>Clarifier son objectif :</strong> industrie, e‑commerce, agroalimentaire, distribution, transport.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="box box-tip">
+                        <span class="box-title">EXEMPLE</span>
+                        « Je suis technicien en logistique rigoureux et polyvalent. Je maîtrise la gestion des flux, les outils numériques et les règles de sécurité. Je souhaite intégrer un entrepôt où je pourrai contribuer à l’optimisation des opérations et à la qualité du service. »
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Construire un pitch -->
+        <section class="section-block">
+            <h2 data-num="3">Construire un pitch professionnel</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>3.1. Structure du pitch (30–45 secondes)</h3>
+                    <ul class="styled-list">
+                        <li>Accroche professionnelle</li>
+                        <li>Compétences clés</li>
+                        <li>Formation ou expérience</li>
+                        <li>Valeur ajoutée</li>
+                        <li>Objectif professionnel</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>3.2. Exemple de pitch</h3>
+                    <div class="box box-tip">
+                        <span class="box-title">EXEMPLE</span>
+                        « Bonjour, je suis technicien en logistique d’entreposage. Je maîtrise la gestion des flux, les outils numériques comme le WMS, et les règles de sécurité. Je suis organisé, polyvalent et fiable. Je souhaite intégrer un entrepôt où je pourrai contribuer à l’optimisation des opérations et à la fluidité des flux. »
+                    </div>
+                    <div class="box box-remember">
+                        <span class="box-title">ASTUCE</span>
+                        Un bon pitch doit être court, professionnel, orienté performance et sécurité.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Se présenter efficacement -->
+        <section class="section-block">
+            <h2 data-num="4">Se présenter efficacement</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>4.1. Les points clés à mettre en avant</h3>
+                    <ul class="styled-list">
+                        <li>Sécurité</li>
+                        <li>Organisation</li>
+                        <li>Polyvalence</li>
+                        <li>Maîtrise des outils numériques</li>
+                        <li>Communication</li>
+                    </ul>
+                    <h3 style="margin-top: 1rem;">4.2. Formulations efficaces</h3>
+                    <ul class="styled-list">
+                        <li>« Je maîtrise les outils numériques et je respecte strictement les procédures. »</li>
+                        <li>« Je suis organisé et je sais optimiser les flux. »</li>
+                        <li>« Je communique efficacement avec les équipes pour fluidifier les opérations. »</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="box box-error">
+                        <span class="box-title">ERREUR FRÉQUENTE</span>
+                        Se concentrer uniquement sur la manutention : les employeurs recherchent aussi analyse, organisation, maîtrise des outils.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Compétences clés -->
+        <section class="section-block">
+            <h2 data-num="5">Compétences clés à mettre en avant</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>5.1. Compétences techniques</h3>
+                    <ul class="styled-list">
+                        <li>Gestion des flux.</li>
+                        <li>Utilisation du WMS.</li>
+                        <li>Organisation du stockage.</li>
+                        <li>Traçabilité.</li>
+                        <li>Sécurité.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>5.2. Compétences comportementales</h3>
+                    <ul class="styled-list">
+                        <li>Vigilance.</li>
+                        <li>Analyse.</li>
+                        <li>Gestion du stress.</li>
+                        <li>Communication.</li>
+                        <li>Fiabilité.</li>
+                    </ul>
+                    <div class="box box-remember">
+                        <span class="box-title">À RETENIR</span>
+                        Dans la logistique, la sécurité, la maîtrise des outils et la communication sont aussi importantes que la performance.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Attitudes professionnelles -->
+        <section class="section-block">
+            <h2 data-num="6">Les attitudes professionnelles attendues</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3>6.1. Posture et comportement</h3>
+                    <ul class="styled-list">
+                        <li>Respect des EPI.</li>
+                        <li>Vigilance dans les déplacements.</li>
+                        <li>Respect des consignes et de la hiérarchie.</li>
+                        <li>Présentation correcte et professionnelle.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>6.2. Attitudes en situation sensible</h3>
+                    <ul class="styled-list">
+                        <li>Garder son calme.</li>
+                        <li>Appliquer les procédures sans improvisation.</li>
+                        <li>Signaler immédiatement tout incident.</li>
+                        <li>Prioriser la sécurité avant la vitesse.</li>
+                    </ul>
+                    <div class="box box-tip">
+                        <span class="box-title">ASTUCE</span>
+                        Dans la logistique, la sécurité passe toujours avant la performance.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Activités pédagogiques -->
+        <section class="section-block">
+            <h2 data-num="7">Activités pédagogiques en présentiel</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">7.1 Exercice : construire son pitch</div>
+                    <ul class="styled-list">
+                        <li>5 minutes d’écriture.</li>
+                        <li>Passage en binôme.</li>
+                        <li>Feedback sur : posture, voix, structure, clarté.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">7.2 Auto‑diagnostic d’identité professionnelle</div>
+                    <ul class="styled-list">
+                        <li>Mes forces techniques.</li>
+                        <li>Mes forces comportementales.</li>
+                        <li>Mes points à améliorer.</li>
+                        <li>Mon objectif professionnel.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Synthèse -->
+        <section class="intro" style="background: var(--color-secondary); color: white; border-left: none; border-top: 5px solid var(--color-primary);">
+            <h3 style="color: var(--color-primary);">SYNTHÈSE – MESSAGES CLÉS</h3>
+            <ul style="color: #ccc; margin-top: 1rem;">
+                <li style="margin-bottom: 0.5rem;">• L’identité professionnelle est un levier d’employabilité dans la logistique.</li>
+                <li style="margin-bottom: 0.5rem;">• Le secteur exige sécurité, rigueur, organisation, polyvalence et communication.</li>
+                <li style="margin-bottom: 0.5rem;">• Un pitch clair renforce la crédibilité du technicien.</li>
+                <li style="margin-bottom: 0.5rem;">• Les compétences techniques doivent être associées à une posture irréprochable.</li>
+                <li>• La cohérence entre discours, attitudes et objectifs renforce l’attractivité du profil.</li>
+            </ul>
+        </section>
+
+        <!-- Bouton Quiz Final -->
+        <section class="quiz-cta-section">
+            <h2>PRÊT POUR LA VALIDATION ?</h2>
+            <p style="margin-bottom: 2rem;">Testez désormais vos connaissances sur notre plateforme.</p>
+            
+            <a href="https://francoismog.github.io/TP-TLE-Quiz-Valoriser-son-identit-Pro/" class="btn-quiz">PASSER LE QUIZ</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Formation Logistique - Titre Pro Technicien en Logistique d’Entreposage.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Document généré pour usage pédagogique.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
